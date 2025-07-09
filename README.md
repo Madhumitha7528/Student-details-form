@@ -12,7 +12,7 @@ A simple web application built using **HTML**, **CSS**, and **JavaScript** that 
 ## 🚀 Demo
 
 You can view a live demo here:  
-[Live Demo](#) 
+[Live Demo](https://madhumitha7528.github.io/Student-details-form/) 
 
 ## 🛠️ Technologies Used
 

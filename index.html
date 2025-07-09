@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Details Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: blanchedalmond;
+      padding: 40px;
+    }
+
+    .form-container {
+      background-color: paleturquoise;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .gender-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .gender-group label {
+      font-weight: normal;
+    }
+
+    input[type="submit"] {
+      background-color: teal;
+      color: black;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: darkcyan;
+    }
+
+    table {
+      width: 90%;
+      margin: 40px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      display: none; /* Hide initially */
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: teal;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Student Details Form</h2>
+    <form id="studentForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" required>
+
+      <label>Gender:</label>
+      <div class="gender-group">
+        <label><input type="radio" name="gender" value="Male" required> Male</label>
+        <label><input type="radio" name="gender" value="Female"> Female</label>
+        <label><input type="radio" name="gender" value="Other"> Other</label>
+      </div>
+
+      <label for="course">Course:</label>
+      <select id="course" required>
+        <option value="">--Select--</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="Python">Python</option>
+        <option value="Data Science">Data Science</option>
+        <option value="Cyber Security">Cyber Security</option>
+        <option value="Web Development">Web Development</option>
+      </select>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+
+  <!-- Table to display submitted students -->
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Course</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Student rows will be added here -->
+    </tbody>
+  </table>
+
+  <script>
+    var form = document.getElementById('studentForm');
+    var table = document.getElementById('studentTable');
+    var tableBody = table.querySelector('tbody');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get form values
+      var name = document.getElementById('name').value;
+      var age = document.getElementById('age').value;
+      var gender = document.querySelector('input[name="gender"]:checked').value;
+      var course = document.getElementById('course').value;
+      var email = document.getElementById('email').value;
+
+      // Create a new row
+      var row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${gender}</td>
+        <td>${course}</td>
+        <td>${email}</td>
+        <td><button class="delete-btn">Delete</button></td>
+      `;
+
+      // Add row to table
+      tableBody.appendChild(row);
+
+      // Show table on first submission
+      table.style.display = 'table';
+
+      // Reset form
+      form.reset();
+
+      // Add delete functionality
+      row.querySelector('.delete-btn').addEventListener('click', function() {
+        row.remove();
+
+        // Hide table if no rows are left
+        if (tableBody.children.length === 0) {
+          table.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
